@@ -1,0 +1,37 @@
+{
+  "version": "2025.08.01",
+  "bases": [
+    {
+      "id": "phi3-mini-4k",
+      "tokenizer": { "repo": "microsoft/Phi-3-mini-4k-instruct" },
+      "variants": [
+        {
+          "id": "webgpu-fp16",
+          "repo": "microsoft/Phi-3-mini-4k-instruct-onnx-web",
+          "path": "webgpu/fp16/model.onnx",
+          "precision": "fp16",
+          "providers": ["webgpu"],
+          "min_vram_mb": 3000,
+          "max_seq_len": 4096
+        },
+        {
+          "id": "webgpu-int4",
+          "repo": "microsoft/Phi-3-mini-4k-instruct-onnx-web",
+          "path": "cpu_and_mobile/cpu-int4-rtn-block-32-acc-level-4/model.onnx",
+          "precision": "int4",
+          "providers": ["webgpu","wasm"],
+          "min_vram_mb": 700,
+          "max_seq_len": 4096
+        },
+        {
+          "id": "wasm-int4",
+          "repo": "microsoft/Phi-3-mini-4k-instruct-onnx-web",
+          "path": "cpu_and_mobile/cpu-int4-rtn-block-32-acc-level-4/model.onnx",
+          "precision": "int4",
+          "providers": ["wasm"],
+          "max_seq_len": 4096
+        }
+      ]
+    }
+  ]
+}
