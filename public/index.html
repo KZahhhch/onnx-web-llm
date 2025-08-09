@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>onnx-web-llm demo</title>
+</head>
+<body>
+  <h1>onnx-web-llm (ORT Web + Transformers.js)</h1>
+  <pre id="out"></pre>
+
+  <script type="module">
+    import { OnnxWebLLM } from "../src/index.ts";
+
+    const out = document.getElementById("out");
+    const log = (t) => out.textContent += t;
+
+    const llm = new OnnxWebLLM({
+      baseURL: "./",                 // files served from /public
+      executionProviders: ["wasm"],  // switch to ["webgpu","wasm"] when you’re ready
+      tokenizerPath: "tokenizer",    // folder: public/tokenizer/{tokenizer.json,...}
+    });
+
+    await llm.loadBase("model.onnx");
+    for await (const chunk of llm.generate("Hello")) {
+      log(chunk.text);
+    }
+  </script>
+</body>
+</html>
